@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/Iretoms/hng-task-one/route"
+	"github.com/Iretoms/hng-task-one/api/route"
 	"github.com/gin-gonic/gin"
 )
 

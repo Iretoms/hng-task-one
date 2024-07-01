@@ -9,8 +9,8 @@ import (
 	"os"
 	"regexp"
 
-	"github.com/Iretoms/hng-task-one/model"
-	"github.com/Iretoms/hng-task-one/response"
+	"github.com/Iretoms/hng-task-one/api/model"
+	"github.com/Iretoms/hng-task-one/api/response"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
