@@ -1,6 +1,6 @@
 module github.com/Iretoms/hng-task-one
 
-go 1.22.4
+go 1.20
 
 require (
 	github.com/bytedance/sonic v1.11.9 // indirect
