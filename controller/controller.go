@@ -19,6 +19,7 @@ func HelloCall() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		visitor_name := c.DefaultQuery("visitor_name", "Guest")
 		clientIp, location := getIpLoc()
+		fmt.Printf("clientIp:%v, location:%v", clientIp, location)
 		temp := getTemp(location)
 
 		c.JSON(http.StatusOK, response.HelloResponse{ClientIp: clientIp, Location: location, Greeting: fmt.Sprintf("Hello, %v!, the temperature is %v degrees celsius in %v", visitor_name, temp, location)})
