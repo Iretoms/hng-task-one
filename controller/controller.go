@@ -27,7 +27,7 @@ func HelloCall() gin.HandlerFunc {
 }
 
 func getIpLoc() (string, string) {
-	response, err := http.Get("https://get.geojs.io/v1/ip/geo.js")
+	response, err := http.Get("https://ipv4.geojs.io/v1/ip/geo.js")
 
 	if err != nil {
 		fmt.Print(err.Error())
