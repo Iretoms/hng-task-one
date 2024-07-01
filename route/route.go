@@ -1,7 +1,7 @@
 package route
 
 import (
-	"github.com/Iretoms/hng-task-one/api/controller"
+	"github.com/Iretoms/hng-task-one/controller"
 	"github.com/gin-gonic/gin"
 )
 
