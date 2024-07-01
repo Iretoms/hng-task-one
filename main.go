@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/Iretoms/hng-task-one/api/route"
+	"github.com/Iretoms/hng-task-one/route"
 	"github.com/gin-gonic/gin"
 )
 
@@ -20,4 +20,5 @@ func ServeApp() {
 
 	router.Run(":8080")
 	fmt.Println("Server is running on port 8080")
+
 }
