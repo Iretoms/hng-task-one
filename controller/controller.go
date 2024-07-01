@@ -17,7 +17,7 @@ import (
 
 func HelloCall() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		visitor_name := c.DefaultQuery("visitor_name", "unknown")
+		visitor_name := c.DefaultQuery("visitor_name", "Guest")
 		clientIp, location := getIpLoc()
 		temp := getTemp(location)
 
