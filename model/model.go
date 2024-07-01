@@ -1,7 +1,6 @@
 package model
 
 type GeoData struct {
-	IP string `json:"ip"`
 	Location string `json:"city"`
 }
 

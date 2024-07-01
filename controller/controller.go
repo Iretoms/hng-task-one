@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"regexp"
+	"strings"
 
 	"github.com/Iretoms/hng-task-one/model"
 	"github.com/Iretoms/hng-task-one/response"
@@ -18,16 +19,16 @@ import (
 func HelloCall() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		visitor_name := c.DefaultQuery("visitor_name", "Guest")
-		clientIp, location := getIpLoc()
-		fmt.Printf("clientIp:%v, location:%v", clientIp, location)
+		clientIp := c.ClientIP()
+		location := getLoc(clientIp)
 		temp := getTemp(location)
 
 		c.JSON(http.StatusOK, response.HelloResponse{ClientIp: clientIp, Location: location, Greeting: fmt.Sprintf("Hello, %v!, the temperature is %v degrees celsius in %v", visitor_name, temp, location)})
 	}
 }
 
-func getIpLoc() (string, string) {
-	response, err := http.Get("https://ipv4.geojs.io/v1/ip/geo.js")
+func getLoc(ip string) string {
+	response, err := http.Get(fmt.Sprintf("https://ipv4.geojs.io/v1/ip/geo.js?ip=%v", ip))
 
 	if err != nil {
 		fmt.Print(err.Error())
@@ -40,17 +41,29 @@ func getIpLoc() (string, string) {
 		log.Fatal(err)
 	}
 
-	re := regexp.MustCompile(`\{.*\}`)
-	jsonStr := re.FindString(string(responseData))
+	jsonStr := extractJSON(string(responseData))
 
-	var responseObject model.GeoData
+	var responseObject []model.GeoData
 
 	err = json.Unmarshal([]byte(jsonStr), &responseObject)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	return responseObject.IP, responseObject.Location
+	if len(responseObject) > 0 {
+		return responseObject[0].Location
+	}
+
+	return ""
+}
+
+func extractJSON(jsonp string) string {
+
+	jsonp = strings.TrimPrefix(jsonp, "geoip(")
+	jsonp = strings.TrimSuffix(jsonp, ")")
+
+	re := regexp.MustCompile(`\[.*\]`)
+	return re.FindString(jsonp)
 }
 
 func getTemp(loc string) float64 {
